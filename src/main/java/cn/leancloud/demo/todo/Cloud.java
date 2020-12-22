@@ -117,7 +117,7 @@ public class Cloud {
         } else {
             letter = letter + "对方留下了他的联系方式，您的回复可以直接发送给他呦<br>";
         }
-        letter = letter + "点击链接快速前往文章：<a href=\"https://blog.deep-blue.cloud" + url + "\">https://blog.deep-blue.cloud" + url + "</a><br>";
+        letter = letter + "点击链接快速前往文章：<a href=\"" + ContentValues.hrefLinkUrl + url + "\">" + ContentValues.hrefLinkUrl + url + "</a><br>";
         logger.info(letter);
         doSend(letter, mail);
     }
@@ -173,10 +173,8 @@ public class Cloud {
             request.setToAddress(toAddr);
             //可以给多个收件人发送邮件，收件人之间用逗号分开，批量发信建议使用BatchSendMailRequest方式
             //request.setToAddress("邮箱1,邮箱2");
-            byte[] emailByte = emailTitle.getBytes();
-            String emailTitle = new String(emailByte,"UFT-8");
-            logger.info(emailTitle);
-            request.setSubject(emailTitle);
+            logger.info(ContentValues.emailTitle);
+            request.setSubject(ContentValues.emailTitle);
             //如果采用byte[].toString的方式的话请确保最终转换成utf-8的格式再放入htmlbody和textbody，若编码不一致则会被当成垃圾邮件。
             //注意：文本邮件的大小限制为3M，过大的文本会导致连接超时或413错误
             request.setHtmlBody(comment);
